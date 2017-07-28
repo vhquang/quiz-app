@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import './index.css';
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
 
 // import App from './App';
 // import registerServiceWorker from './registerServiceWorker';
@@ -32,9 +32,12 @@ const list = [
 class QuestionHead extends React.Component {
 
   render () {
+    const style = {
+
+    };
     return (
-      <div>
-        <p> {this.props.question} </p>
+      <div className=" well ">
+        <p className="lead"> <strong> {this.props.question} </strong> </p>
       </div>
     );
   }
@@ -49,11 +52,11 @@ class QuestionChoices extends React.Component {
   render() {
     const choices = this.props.answers.concat(this.props.choices);
     const choiceList = choices.map((choice) =>
-      <button>{choice}</button>
+      <button type="button" className="btn btn-default">{choice}</button>
     );
 
     return (
-      <div>
+      <div className=" well ">
         {choiceList}
       </div>
     );
@@ -68,7 +71,7 @@ class QuestionActions extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className=" well ">
         <button> Submit </button>
       </div>
     );
@@ -84,7 +87,7 @@ class QuestionExplanation extends React.Component {
   render() {
     const explanation = this.props.explanation;
     return (
-      <div>
+      <div className=" well ">
         <p> {explanation} </p>
       </div>
     );
@@ -99,9 +102,12 @@ class Question extends React.Component {
 
   render() {
     const data = this.props.data;
+    const style = {
+      backgroundColor: 'green'  // todo this doesn't work
+    };
 
     return (
-      <div className="App">
+      <div className="container" style={style}>
         <QuestionHead question={data.question} />
 
         <QuestionChoices answers={data.answers} choices={data.choices} />
@@ -126,27 +132,29 @@ class Quiz extends React.Component {
       <Question data={question} />
     );
     return (
-      <div> {questionList} </div>
-    );
-  }
-}
-
-class Test extends React.Component {
-  render() {
-    return (
-      <div className="App">
-
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-
-        <p> this is a question </p>
-
+      <div>
+      {questionList}
       </div>
     );
   }
 }
+
+// class Test extends React.Component {
+//   render() {
+//     return (
+//       <div className="App">
+
+//         <div className="App-header">
+//           <img src={logo} className="App-logo" alt="logo" />
+//           <h2>Welcome to React</h2>
+//         </div>
+
+//         <p> this is a question </p>
+
+//       </div>
+//     );
+//   }
+// }
 
 const numbers = [1, 2, 3, 4, 5];
 ReactDOM.render(
