@@ -13,10 +13,13 @@ import './App.css';
 // ReactDOM.render(<App />, document.getElementById('root'));
 // registerServiceWorker();
 
+// todo write validator
 const list = [
   {
     "question": "question 1",
-    "answer": "this is a correct answer",  // todo make multi answers
+    "answers": [
+      "this is a correct answer"
+    ],
     "choices": [
       "answer b",
       "answer c",
@@ -26,6 +29,69 @@ const list = [
   },
 ];
 
+class QuestionHead extends React.Component {
+
+  render () {
+    return (
+      <div>
+        <p> {this.props.question} </p>
+      </div>
+    );
+  }
+}
+
+
+class QuestionChoices extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const choices = this.props.answers.concat(this.props.choices);
+    const choiceList = choices.map((choice) =>
+      <button>{choice}</button>
+    );
+
+    return (
+      <div>
+        {choiceList}
+      </div>
+    );
+  }
+}
+
+
+class QuestionActions extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <button> Submit </button>
+      </div>
+    );
+  }
+}
+
+
+class QuestionExplanation extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const explanation = this.props.explanation;
+    return (
+      <div>
+        <p> {explanation} </p>
+      </div>
+    );
+  }
+}
+
+
 class Question extends React.Component {
   constructor(props) {
     super(props);
@@ -33,23 +99,21 @@ class Question extends React.Component {
 
   render() {
     const data = this.props.data;
-    const choices = [data.answer].concat(data.choices);
-    const choiceList = choices.map((choice) =>
-      <button>{choice}</button>
-    );
+
     return (
       <div className="App">
-        <p> {data.question} </p>
+        <QuestionHead question={data.question} />
 
-        {choiceList}
+        <QuestionChoices answers={data.answers} choices={data.choices} />
 
-        <button> Submit </button>
+        <QuestionActions />
 
-        <p> {data.explanation} </p>
+        <QuestionExplanation explanation={data.explanation} />
       </div>
     );
   }
 }
+
 
 class Quiz extends React.Component {
   constructor(props) {
