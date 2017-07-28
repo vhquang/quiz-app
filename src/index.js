@@ -51,8 +51,13 @@ class QuestionChoices extends React.Component {
 
   render() {
     const choices = this.props.answers.concat(this.props.choices);
-    const choiceList = choices.map((choice) =>
-      <button type="button" className="btn btn-default">{choice}</button>
+    const choiceList = choices.map((choice) => {
+      return (
+        <div>
+          <button type="button" className="btn btn-default btn-block">{choice}</button>
+        </div>
+      );
+    }
     );
 
     return (
@@ -72,7 +77,7 @@ class QuestionActions extends React.Component {
   render() {
     return (
       <div className=" well ">
-        <button> Submit </button>
+        <button type="button" className="btn btn-default btn-block"> Submit </button>
       </div>
     );
   }
