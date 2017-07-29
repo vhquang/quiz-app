@@ -138,9 +138,21 @@ class QuestionExplanation extends React.Component {
 
   render() {
     const explanation = this.props.explanation;
+    const isCorrect = this.props.isCorrect;
+    const answers = this.props.correctAnswers;
     return (
       <div className=" well ">
+
+        {isCorrect ? (
+          <p> Correct! </p>
+        ) : (
+          <p> Incorrect! </p>
+        )}
+
         <p> {explanation} </p>
+
+        <p> The correct answer is: {answers.join(", ")}</p>
+
       </div>
     );
   }
@@ -156,6 +168,7 @@ class Question extends React.Component {
     this.state = {
       choices: shuffle(choices),
       selection: [],
+      isCorrect: null,
       done: false
     };
 
@@ -177,11 +190,11 @@ class Question extends React.Component {
   processAnswers() {
     const selectionSet = new Set(this.state.selection);
     const answerSet = new Set(this.props.data.correct);
-    const questionCorrect = isEqualSet(selectionSet, answerSet);
+    const isCorrect = isEqualSet(selectionSet, answerSet);
     this.setState({
-      done: true
+      done: true,
+      isCorrect: isCorrect
     });
-    alert(questionCorrect);
   }
 
   render() {
@@ -191,6 +204,7 @@ class Question extends React.Component {
     const data = this.props.data;
     const choices = this.state.choices;
     const selection = this.state.selection;
+    const done = this.state.done;
 
     return (
       <div className="container" style={style}>
@@ -198,12 +212,16 @@ class Question extends React.Component {
 
         <QuestionChoices choices={choices}
                          selection={selection}
-                         done={this.state.done}
+                         done={done}
                          onSelect={this.updateSelection} />
 
         <QuestionActions onSubmit={this.processAnswers} />
 
-        <QuestionExplanation explanation={data.explanation} />
+        {done &&
+          <QuestionExplanation explanation={data.explanation}
+                               isCorrect={this.state.isCorrect}
+                               correctAnswers={data.correct} />
+        }
       </div>
     );
   }
