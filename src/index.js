@@ -39,6 +39,19 @@ function shuffle(a) {
   return a;
 }
 
+function arrayXor(array, element) {
+  let found = false, res = [];
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === element) {
+      found = true;
+      continue;
+    }
+    res.push(array[i]);
+  }
+  if (!found) res.push(element);
+  return res;
+}
+
 
 class QuestionHead extends React.Component {
 
@@ -58,14 +71,22 @@ class QuestionHead extends React.Component {
 class QuestionChoices extends React.Component {
   constructor(props) {
     super(props);
+    this.onAnswerClick = this.onAnswerClick.bind(this);
+  }
+
+  onAnswerClick(e) {
+    const input = e.target
+    this.props.onSelect(input.value);
   }
 
   render() {
     const choices = this.props.choices;
     const choiceList = choices.map((choice) => {
       return (
-        <div>
-          <button type="button" className="btn btn-default btn-block">{choice}</button>
+        <div key={choice.toString()}>
+          <input type="button" className="btn btn-default btn-block"
+                  value={choice}
+                  onClick={this.onAnswerClick} />
         </div>
       );
     }
@@ -81,9 +102,9 @@ class QuestionChoices extends React.Component {
 
 
 class QuestionActions extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     return (
@@ -96,9 +117,9 @@ class QuestionActions extends React.Component {
 
 
 class QuestionExplanation extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     const explanation = this.props.explanation;
@@ -116,9 +137,24 @@ class Question extends React.Component {
     super(props);
     const data = this.props.data
     let choices = data.correct.concat(data.wrong);
+
     this.state = {
-      choices: shuffle(choices)
+      choices: shuffle(choices),
+      selection: []
     };
+
+    this.updateSelection = this.updateSelection.bind(this);
+  }
+
+  updateSelection(response) {
+    this.setState( (prevState, props) => {
+      const correctAnswers = props.data.correct;
+      if (correctAnswers.length > 1) {
+        return {selection: arrayXor(this.state.selection, response)};
+      } else {
+        return {selection: [response]};
+      }
+    } );
   }
 
   render() {
@@ -127,12 +163,15 @@ class Question extends React.Component {
     };
     const data = this.props.data;
     const choices = this.state.choices;
+    const selection = this.state.selection;
 
     return (
       <div className="container" style={style}>
         <QuestionHead question={data.question} />
 
-        <QuestionChoices choices={choices} />
+        <QuestionChoices choices={choices}
+                         selection={selection}
+                         onSelect={this.updateSelection} />
 
         <QuestionActions />
 
@@ -144,14 +183,14 @@ class Question extends React.Component {
 
 
 class Quiz extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     const questions = this.props.questions;
-    const questionList = questions.map( (question) =>
-      <Question data={question} />
+    const questionList = questions.map( (question, index) =>
+      <Question key={index} data={question} />
     );
     return (
       <div>
@@ -179,10 +218,7 @@ class Quiz extends React.Component {
 // }
 // todo clean up
 
-const numbers = [1, 2, 3, 4, 5];
 ReactDOM.render(
   <Quiz questions={list} />,
-  // <Question data={list[0]} />,  // todo clean up
-  // <Test/>,
   document.getElementById('root')
 );
