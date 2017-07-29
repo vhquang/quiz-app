@@ -20,6 +20,7 @@ const list = [
   {
     "question": "question 1",
     "correct": [
+      "second correct answer",
       "this is a correct answer"
     ],
     "wrong": [
@@ -52,9 +53,16 @@ function arrayXor(array, element) {
   return res;
 }
 
+function isEqualSet(a, b) {
+  if (a.size !== b.size) return false;
+  for (let x of a) {
+    if (!b.has(x)) return false;
+  }
+  return true;
+}
+
 
 class QuestionHead extends React.Component {
-
   render () {
     const style = {
 
@@ -82,6 +90,9 @@ class QuestionChoices extends React.Component {
   render() {
     const choices = this.props.choices;
     const selection = this.props.selection;
+    const done = this.props.done;
+    // todo disable button after done
+
     const choiceList = choices.map((choice) => {
       let buttonType = selection.includes(choice) ? "btn-success" : "btn-default";
       return (
@@ -109,9 +120,11 @@ class QuestionActions extends React.Component {
   // }
 
   render() {
+    const submitFunc = this.props.onSubmit;
     return (
       <div className=" well ">
-        <button type="button" className="btn btn-default btn-block"> Submit </button>
+        <button type="button" className="btn btn-default btn-block"
+                onClick={submitFunc}> Submit </button>
       </div>
     );
   }
@@ -142,10 +155,12 @@ class Question extends React.Component {
 
     this.state = {
       choices: shuffle(choices),
-      selection: []
+      selection: [],
+      done: false
     };
 
     this.updateSelection = this.updateSelection.bind(this);
+    this.processAnswers = this.processAnswers.bind(this);
   }
 
   updateSelection(response) {
@@ -157,6 +172,16 @@ class Question extends React.Component {
         return {selection: [response]};
       }
     } );
+  }
+
+  processAnswers() {
+    const selectionSet = new Set(this.state.selection);
+    const answerSet = new Set(this.props.data.correct);
+    const questionCorrect = isEqualSet(selectionSet, answerSet);
+    this.setState({
+      done: true
+    });
+    alert(questionCorrect);
   }
 
   render() {
@@ -173,9 +198,10 @@ class Question extends React.Component {
 
         <QuestionChoices choices={choices}
                          selection={selection}
+                         done={this.state.done}
                          onSelect={this.updateSelection} />
 
-        <QuestionActions />
+        <QuestionActions onSubmit={this.processAnswers} />
 
         <QuestionExplanation explanation={data.explanation} />
       </div>
