@@ -91,7 +91,6 @@ class QuestionChoices extends React.Component {
     const choices = this.props.choices;
     const selection = this.props.selection;
     const done = this.props.done;
-    // todo disable button after done
 
     const choiceList = choices.map((choice) => {
       let buttonType = selection.includes(choice) ? "btn-success" : "btn-default";
@@ -100,6 +99,7 @@ class QuestionChoices extends React.Component {
           <input type="button"
                  className={"btn btn-block " + buttonType}
                  value={choice}
+                 disabled={done}
                  onClick={this.onAnswerClick} />
         </div>
       );
@@ -121,10 +121,18 @@ class QuestionActions extends React.Component {
 
   render() {
     const submitFunc = this.props.onSubmit;
+
+    const done = this.props.done;
     return (
       <div className=" well ">
+      {!done ? (
         <button type="button" className="btn btn-default btn-block"
+                disabled={done}
                 onClick={submitFunc}> Submit </button>
+      ) : (
+        <button type="button" className="btn btn-default btn-block"
+                onClick={this.props.goNext}> Next </button>
+      )}
       </div>
     );
   }
@@ -215,7 +223,9 @@ class Question extends React.Component {
                          done={done}
                          onSelect={this.updateSelection} />
 
-        <QuestionActions onSubmit={this.processAnswers} />
+        <QuestionActions onSubmit={this.processAnswers}
+                         goNext={this.props.goNext}
+                         done={done} />
 
         {done &&
           <QuestionExplanation explanation={data.explanation}
@@ -229,14 +239,19 @@ class Question extends React.Component {
 
 
 class Quiz extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+    this.nextQuestion = this.nextQuestion.bind(this);
+  }
+
+  nextQuestion() {
+    alert('next');
+  }
 
   render() {
     const questions = this.props.questions;
     const questionList = questions.map( (question, index) =>
-      <Question key={index} data={question} />
+      <Question key={index} data={question} goNext={this.nextQuestion}/>
     );
     return (
       <div>
