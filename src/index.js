@@ -75,22 +75,24 @@ class QuestionChoices extends React.Component {
   }
 
   onAnswerClick(e) {
-    const input = e.target
+    const input = e.target;
     this.props.onSelect(input.value);
   }
 
   render() {
     const choices = this.props.choices;
+    const selection = this.props.selection;
     const choiceList = choices.map((choice) => {
+      let buttonType = selection.includes(choice) ? "btn-success" : "btn-default";
       return (
         <div key={choice.toString()}>
-          <input type="button" className="btn btn-default btn-block"
-                  value={choice}
-                  onClick={this.onAnswerClick} />
+          <input type="button"
+                 className={"btn btn-block " + buttonType}
+                 value={choice}
+                 onClick={this.onAnswerClick} />
         </div>
       );
-    }
-    );
+    });
 
     return (
       <div className=" well ">
