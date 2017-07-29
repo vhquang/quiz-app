@@ -4,14 +4,6 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import './index.css';
-// import logo from './logo.svg';
-// import './App.css';
-
-// import App from './App';
-// import registerServiceWorker from './registerServiceWorker';
-
-// ReactDOM.render(<App />, document.getElementById('root'));
-// todo clean up
 
 // registerServiceWorker();
 
@@ -261,23 +253,6 @@ class Quiz extends React.Component {
   }
 }
 
-// class Test extends React.Component {
-//   render() {
-//     return (
-//       <div className="App">
-
-//         <div className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           <h2>Welcome to React</h2>
-//         </div>
-
-//         <p> this is a question </p>
-
-//       </div>
-//     );
-//   }
-// }
-// todo clean up
 
 ReactDOM.render(
   <Quiz questions={list} />,
