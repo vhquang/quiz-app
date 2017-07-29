@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
+// import 'bootstrap/dist/css/bootstrap-theme.css';
 import './index.css';
 
 // registerServiceWorker();
@@ -73,7 +73,7 @@ class QuestionHead extends React.Component {
 
     };
     return (
-      <div className=" well ">
+      <div className="well panel">
         <p className="lead"> <strong> {this.props.question} </strong> </p>
       </div>
     );
@@ -98,20 +98,20 @@ class QuestionChoices extends React.Component {
     const done = this.props.done;
 
     const choiceList = choices.map((choice) => {
-      let buttonType = selection.includes(choice) ? "btn-success" : "btn-default";
+      let isPressed = selection.includes(choice) ? "btn-pressed" : "";
       return (
-        <div key={choice.toString()}>
+        <li key={choice.toString()} className="answer-list">
           <input type="button"
-                 className={"btn btn-block " + buttonType}
+                 className={"btn btn-primary-outline btn-block " + isPressed}
                  value={choice}
                  disabled={done}
                  onClick={this.onAnswerClick} />
-        </div>
+        </li>
       );
     });
 
     return (
-      <div className=" well ">
+      <div className="well panel">
         {choiceList}
       </div>
     );
@@ -129,7 +129,7 @@ class QuestionActions extends React.Component {
 
     const done = this.props.done;
     return (
-      <div className=" well ">
+      <div className="well panel">
       {!done ? (
         <button type="button" className="btn btn-default btn-block"
                 disabled={done}
@@ -154,7 +154,7 @@ class QuestionExplanation extends React.Component {
     const isCorrect = this.props.isCorrect;
     const answers = this.props.correctAnswers;
     return (
-      <div className=" well ">
+      <div className="well panel">
 
         {isCorrect ? (
           <p> Correct! </p>
@@ -212,7 +212,7 @@ class Question extends React.Component {
 
   render() {
     const style = {
-      backgroundColor: 'green'  // todo remove this
+      // backgroundColor: 'green'
     };
     const data = this.props.data;
     const choices = this.state.choices;

@@ -1,6 +1,152 @@
 body {
-  margin: 0;
-  padding: 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
   background-color: #eee;
-  font-family: sans-serif;
+  /*font-family: sans-serif;*/
+}
+
+.panel {
+  background-color: #fefefe;
+}
+
+.btn-primary-outline {
+  background-color: transparent;
+  border-color: #ddd;
+  text-align: left;
+  color: #7d7d7d;
+}
+
+.btn-pressed {
+  /*-webkit-box-shadow: 0 6px 6px -3px #9d9d9d;
+     -moz-box-shadow: 0 6px 6px -3px #9d9d9d;
+          box-shadow: 0 6px 6px -3px #9d9d9d;*/
+  background-color: #eee;
+  /*border-color: #31708f;*/
+  color: forestgreen;
+}
+
+li {
+  list-style-type: none;
+}
+
+.answer-list {
+  margin-top: 10px;
+}
+
+/*---------------------------------------------------------_-------------*/
+
+.strike {
+  text-decoration: line-through;
+}
+.grey {
+  color: lightgray !important;
+}
+.grey a {
+  color: lightgray !important;
+}
+.g {
+  color: lightgray !important;
+}
+
+span.label {
+  color: lightslategray;
+  font-size: 83%;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+/* Image rotation */
+.spinning {
+  -webkit-animation:spin 2s linear infinite;
+  -moz-animation:spin 2s linear infinite;
+  animation:spin 2s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.match-item {
+  border: 3px solid darkorange;
+}
+
+.pinned {
+  /*position: fixed;*/
+}
+
+.pinned-active {
+  position:fixed;
+  top: 0;
+  box-shadow: 3px 3px 10px 2px rgba(0,0,0,0.2)
 }
