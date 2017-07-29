@@ -11,16 +11,18 @@ import './index.css';
 // import registerServiceWorker from './registerServiceWorker';
 
 // ReactDOM.render(<App />, document.getElementById('root'));
+// todo clean up
+
 // registerServiceWorker();
 
 // todo write validator
 const list = [
   {
     "question": "question 1",
-    "answers": [
+    "correct": [
       "this is a correct answer"
     ],
-    "choices": [
+    "wrong": [
       "answer b",
       "answer c",
       "answer d"
@@ -28,6 +30,15 @@ const list = [
     "explanation": "explain 1"
   },
 ];
+
+function shuffle(a) {
+  for (let i = a.length; i; i--) {
+    let j = Math.floor(Math.random() * i);
+    [a[i - 1], a[j]] = [a[j], a[i - 1]];
+  }
+  return a;
+}
+
 
 class QuestionHead extends React.Component {
 
@@ -50,7 +61,7 @@ class QuestionChoices extends React.Component {
   }
 
   render() {
-    const choices = this.props.answers.concat(this.props.choices);
+    const choices = this.props.choices;
     const choiceList = choices.map((choice) => {
       return (
         <div>
@@ -103,19 +114,25 @@ class QuestionExplanation extends React.Component {
 class Question extends React.Component {
   constructor(props) {
     super(props);
+    const data = this.props.data
+    let choices = data.correct.concat(data.wrong);
+    this.state = {
+      choices: shuffle(choices)
+    };
   }
 
   render() {
-    const data = this.props.data;
     const style = {
-      backgroundColor: 'green'  // todo this doesn't work
+      backgroundColor: 'green'  // todo remove this
     };
+    const data = this.props.data;
+    const choices = this.state.choices;
 
     return (
       <div className="container" style={style}>
         <QuestionHead question={data.question} />
 
-        <QuestionChoices answers={data.answers} choices={data.choices} />
+        <QuestionChoices choices={choices} />
 
         <QuestionActions />
 
@@ -128,7 +145,7 @@ class Question extends React.Component {
 
 class Quiz extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
@@ -160,11 +177,12 @@ class Quiz extends React.Component {
 //     );
 //   }
 // }
+// todo clean up
 
 const numbers = [1, 2, 3, 4, 5];
 ReactDOM.render(
   <Quiz questions={list} />,
-  // <Question data={list[0]} />,
+  // <Question data={list[0]} />,  // todo clean up
   // <Test/>,
   document.getElementById('root')
 );
