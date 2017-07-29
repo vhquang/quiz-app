@@ -22,6 +22,19 @@ const list = [
     ],
     "explanation": "explain 1"
   },
+  {
+    "question": "question 2",
+    "correct": [
+      // "second correct answer",
+      "this is a correct answer"
+    ],
+    "wrong": [
+      "answer b",
+      "answer c",
+      "answer d"
+    ],
+    "explanation": "explain 2"
+  },
 ];
 
 function shuffle(a) {
@@ -233,21 +246,33 @@ class Question extends React.Component {
 class Quiz extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      questionIndex: 0
+    };
     this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   nextQuestion() {
-    alert('next');
+    this.setState( (prevState) => {
+      return {
+        questionIndex: prevState.questionIndex + 1
+      };
+    });
   }
 
   render() {
     const questions = this.props.questions;
+    const questionIndex = this.state.questionIndex;
     const questionList = questions.map( (question, index) =>
       <Question key={index} data={question} goNext={this.nextQuestion}/>
     );
     return (
       <div>
-      {questionList}
+        { questionIndex < questions.length ? (
+          questionList.filter( (i, idx) => idx === questionIndex )
+        ) : (
+          <p> No more question </p>
+        )}
       </div>
     );
   }
