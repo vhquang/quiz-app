@@ -126,16 +126,16 @@ class QuestionActions extends React.Component {
 
   render() {
     const submitFunc = this.props.onSubmit;
-
     const done = this.props.done;
+    const buttonStyle = "btn btn-lg btn-block ";
     return (
-      <div className="well panel">
+      <div className="well panel action">
       {!done ? (
-        <button type="button" className="btn btn-default btn-block"
+        <button type="button" className={buttonStyle + "btn-default"}
                 disabled={done}
                 onClick={submitFunc}> Submit </button>
       ) : (
-        <button type="button" className="btn btn-default btn-block"
+        <button type="button" className={buttonStyle + "btn-default"}
                 onClick={this.props.goNext}> Next </button>
       )}
       </div>
@@ -208,6 +208,9 @@ class Question extends React.Component {
       done: true,
       isCorrect: isCorrect
     });
+    if (!isCorrect) {
+      this.props.addWrong();
+    }
   }
 
   render() {
@@ -243,13 +246,50 @@ class Question extends React.Component {
 }
 
 
+class QuizSummary extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const questions = this.props.questionsWrong;
+    const explanations = questions.map(item => {
+      return (
+        <div>
+        <p> {item.question} </p>
+        <QuestionExplanation explanation={item.explanation}
+                             isCorrect={false}
+                             correctAnswers={item.correct} />
+        </div>
+      );
+    });
+    return (
+      <div className="container well panel">
+        <h1> Summary </h1>
+        {explanations}
+      </div>
+    );
+  }
+}
+
+
 class Quiz extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionIndex: 0
+      questionIndex: 0,
+      wrongAnswers: [],
     };
     this.nextQuestion = this.nextQuestion.bind(this);
+    this.addWrong = this.addWrong.bind(this);
+  }
+
+  addWrong() {
+    this.setState( (prevState) => {
+      return {
+        wrongAnswers: prevState.wrongAnswers.concat([prevState.questionIndex])
+      };
+    });
   }
 
   nextQuestion() {
@@ -263,15 +303,16 @@ class Quiz extends React.Component {
   render() {
     const questions = this.props.questions;
     const questionIndex = this.state.questionIndex;
+    const wrongAnswers = new Set(this.state.wrongAnswers);
     const questionList = questions.map( (question, index) =>
-      <Question key={index} data={question} goNext={this.nextQuestion}/>
+      <Question key={index} data={question} goNext={this.nextQuestion} addWrong={this.addWrong} />
     );
     return (
       <div>
         { questionIndex < questions.length ? (
-          questionList.filter( (i, idx) => idx === questionIndex )
+          questionList.filter((i, idx) => idx === questionIndex)
         ) : (
-          <p> No more question </p>
+          <QuizSummary questionsWrong={questions.filter((i, idx) => wrongAnswers.has(idx))} />
         )}
       </div>
     );

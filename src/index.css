@@ -9,6 +9,13 @@ body {
   background-color: #fefefe;
 }
 
+.panel.action {
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
 .btn-primary-outline {
   background-color: transparent;
   border-color: #ddd;
@@ -31,6 +38,7 @@ li {
 
 .answer-list {
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /*---------------------------------------------------------_-------------*/
