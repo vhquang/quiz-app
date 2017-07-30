@@ -284,9 +284,9 @@ class QuizSummary extends React.Component {
 
   render() {
     const questions = this.props.questionsWrong;
-    const explanations = questions.map(item => {
+    const explanations = questions.map((item, index) => {
       return (
-        <div>
+        <div key={index}>
         <p> {item.question} </p>
         <QuestionExplanation explanation={item.explanation}
                              isCorrect={false}
