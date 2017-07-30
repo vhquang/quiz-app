@@ -106,9 +106,6 @@ function isEqualSet(a, b) {
 
 class QuestionHead extends React.Component {
   render () {
-    const style = {
-
-    };
     return (
       <div className="well panel">
         <p className="lead"> <strong> {this.props.question} </strong> </p>
@@ -251,16 +248,13 @@ class Question extends React.Component {
   }
 
   render() {
-    const style = {
-      // backgroundColor: 'green'
-    };
     const data = this.props.data;
     const choices = this.state.choices;
     const selection = this.state.selection;
     const done = this.state.done;
 
     return (
-      <div className="container" style={style}>
+      <div className="container">
         <QuestionHead question={data.question} />
 
         <QuestionChoices choices={choices}
@@ -284,9 +278,9 @@ class Question extends React.Component {
 
 
 class QuizSummary extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     const questions = this.props.questionsWrong;
@@ -377,7 +371,6 @@ class App extends React.Component {
     if (this.ajv.validate(dataSchema, json)) {
       this.setState( {data: json} );
     } else {
-      console.log(this.ajv.errorsText());
       this.setState( {dataErrorMsg: this.ajv.errorsText()} );
     }
   }
