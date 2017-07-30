@@ -8,7 +8,7 @@ import './index.css';
 // registerServiceWorker();
 
 // todo write validator
-const list = [
+let list = [
   {
     "question": "question 1",
     "correct": [
@@ -320,7 +320,62 @@ class Quiz extends React.Component {
 }
 
 
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null
+    };
+    this.handleFileSelect = this.handleFileSelect.bind(this);
+  }
+
+  displayData(content) {
+    const json = JSON.parse(content);
+    this.setState({data: json});
+  }
+
+  handleFileSelect(evt) {
+    let files = evt.target.files;
+    if (!files.length) {
+      alert('No file select');
+      return;
+    }
+    let file = files[0];
+    let that = this;
+    let reader = new FileReader();
+    reader.onload = function(e) {
+      console.log(e.target.result);
+      that.displayData(e.target.result);
+    };
+    reader.readAsText(file);
+  }
+
+  render() {
+    const data = this.state.data;
+    const uploadFile = (
+      <label className="btn btn-lg btn-primary">
+          Load file
+          <input type="file" onChange={this.handleFileSelect}
+                 style={{display: "none"}} />
+      </label>
+    );
+    const uploadPanel = (
+      <div className="well panel action">
+        {uploadFile}
+      </div>
+    );
+    return (
+      <div>
+      { !data && uploadPanel }
+      { data && <Quiz questions={data} /> }
+      </div>
+    );
+  }
+}
+
+
 ReactDOM.render(
-  <Quiz questions={list} />,
+  // <Quiz questions={list} />,
+  <App />,
   document.getElementById('root')
 );
