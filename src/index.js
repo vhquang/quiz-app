@@ -57,18 +57,29 @@ const dataSchema = {
         },
         "correct": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "$ref": "#/definitions/choiceType"
+          },
           "minItems": 1,
           "uniqueItems": true
         },
         "wrong": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "$ref": "#/definitions/choiceType"
+          },
           "minItems": 1,
           "uniqueItems": true
         }
       },
-      "required": ["correct", "wrong"]
+      "required": [ "correct", "wrong" ]
+    },
+    "choiceType": {
+      "anyOf": [
+        {"type": "string"},
+        {"type": "number"},
+        {"type": "boolean"}
+      ]
     }
   }
 };
@@ -366,10 +377,26 @@ class App extends React.Component {
   }
 
   validateData(content) {
-    // todo try/catch
-    const json = JSON.parse(content);
-    if (this.ajv.validate(dataSchema, json)) {
-      this.setState( {data: json} );
+    let data = null, error = "";
+    let yaml = require('js-yaml');
+    try {
+      data = JSON.parse(content);
+    } catch (e) {
+      error = error + e.toString();
+    }
+
+    if (!data) {
+      // todo try/catch
+      data = yaml.safeLoad(content);
+    }
+
+    if (!data) {
+      this.setState( {dataErrorMsg: "Cannot parse the file content. " + error} );
+      return;
+    }
+
+    if (this.ajv.validate(dataSchema, data)) {
+      this.setState( {data: data} );
     } else {
       this.setState( {dataErrorMsg: this.ajv.errorsText()} );
     }
