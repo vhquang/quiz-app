@@ -246,8 +246,8 @@ class Question extends React.Component {
   }
 
   processAnswers() {
-    const selectionSet = new Set(this.state.selection);
-    const answerSet = new Set(this.props.data.correct);
+    const selectionSet = new Set( this.state.selection.map(x => x.toString()) );
+    const answerSet = new Set( this.props.data.correct.map(x => x.toString()) );
     const isCorrect = isEqualSet(selectionSet, answerSet);
     this.setState({
       done: true,
