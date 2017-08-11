@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 // import 'bootstrap/dist/css/bootstrap-theme.css';
 
-import App from './QuizApp';
+import App from './App';
 // import Quiz from './Quiz';
 // import { data as dummyList } from './fixture';
 // registerServiceWorker();
