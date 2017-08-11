@@ -202,14 +202,14 @@ class QuestionExplanation extends React.Component {
       <div className="well panel">
 
         {isCorrect ? (
-          <p> Correct! </p>
+          <p className="correct"><strong> Correct! </strong></p>
         ) : (
-          <p> Incorrect! </p>
+          <p className="wrong"><strong> Incorrect! </strong></p>
         )}
 
         <p> {explanation} </p>
 
-        <p> The correct answer is: {answers.join(", ")}</p>
+        <p> The correct answer is: <strong> {answers.join(", ")} </strong></p>
 
       </div>
     );

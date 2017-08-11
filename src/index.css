@@ -47,6 +47,14 @@ li {
   margin-bottom: 10px;
 }
 
+.correct {
+  color: green;
+}
+
+.wrong {
+  color: indianred;
+}
+
 /*----------------------------------------------------------------------*/
 
 span.label {
