@@ -29,7 +29,13 @@ body {
           box-shadow: 0 6px 6px -3px #9d9d9d;*/
   background-color: #eee;
   /*border-color: #31708f;*/
-  color: forestgreen;
+  /*color: forestgreen;*/
+  font-weight: bold;
+  font-size: larger;
+}
+
+.btn:focus {
+  outline: none;
 }
 
 li {
@@ -41,20 +47,7 @@ li {
   margin-bottom: 10px;
 }
 
-/*---------------------------------------------------------_-------------*/
-
-.strike {
-  text-decoration: line-through;
-}
-.grey {
-  color: lightgray !important;
-}
-.grey a {
-  color: lightgray !important;
-}
-.g {
-  color: lightgray !important;
-}
+/*----------------------------------------------------------------------*/
 
 span.label {
   color: lightslategray;
@@ -135,23 +128,9 @@ span.label {
   }
 }
 
-/* Image rotation */
-.spinning {
-  -webkit-animation:spin 2s linear infinite;
-  -moz-animation:spin 2s linear infinite;
-  animation:spin 2s linear infinite;
-}
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
-
-.match-item {
-  border: 3px solid darkorange;
-}
-
-.pinned {
-  /*position: fixed;*/
-}
 
 .pinned-active {
   position:fixed;
