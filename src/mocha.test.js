@@ -4,7 +4,13 @@ describe('Array', function() {
     it('should return -1 when the value is not present', function() {
       assert.equal(-1, [1,2,3].indexOf(4));
       expect([1,2,3].indexOf(4)).toBe(-1);
-      assert.equal(true, false);
+    //   assert.equal(true, false);
+    });
+  });
+  describe('#length', function() {
+    it('should return length of array', function() {
+      assert.equal(3, [1,2,3].length);
+    //   assert.equal(true, false);
     });
   });
 });
