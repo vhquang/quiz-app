@@ -34,7 +34,11 @@ it('submit multiple choice answer', () => {
   expect(question.state.isCorrect).toBe(true);
 });
 
-// add test for summary
+it('QuizSummary show wrong answer', () => {
+  const div = document.createElement('div');
+  var summary = ReactDOM.render(<QuizSummary questionsWrong={ [dummyList[0]] } />, div);
+  // TODO need to do element testing
+});
 
 // test for submit answer with number vs string
 
