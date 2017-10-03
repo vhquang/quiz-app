@@ -11,6 +11,7 @@ it('renders without crashing', () => {
   ReactDOM.render(<App />, div);
   ReactDOM.render(<Quiz questions={dummyList} />, div);
   ReactDOM.render(<QuizSummary questionsWrong={ [dummyList[0]] } />, div);
+  ReactDOM.render(<Question data={ dummyList[0] } />, div);
 });
 
 // test single selection, multi selection

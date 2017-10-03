@@ -108,7 +108,7 @@ class QuestionExplanation extends React.Component {
 class Question extends React.Component {
   constructor(props) {
     super(props);
-    const data = this.props.data
+    const data = this.props.data;
     let choices = data.correct.concat(data.wrong);
 
     this.state = {
