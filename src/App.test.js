@@ -10,6 +10,7 @@ it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);
   ReactDOM.render(<Quiz questions={dummyList} />, div);
+  ReactDOM.render(<QuizSummary questionsWrong={ [dummyList[0]] } />, div);
 });
 
 // test single selection, multi selection
