@@ -6,6 +6,8 @@ import { Quiz, QuizSummary } from './Quiz';
 import { Question, QuestionExplanation } from './Question';
 import { data as dummyList } from './fixture';
 
+var assert = require('assert');
+
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);
@@ -14,12 +16,23 @@ it('renders without crashing', () => {
   ReactDOM.render(<Question data={ dummyList[0] } />, div);
 });
 
-// test single selection, multi selection
 it('submit single choice answer', () => {
-
+  const div = document.createElement('div');
+  var question = ReactDOM.render(<Question data={ dummyList[1] } />, div);
+  question.updateSelection("this is a correct answer");
+  question.processAnswers();
+  expect(question.state.isCorrect).toBe(true);
 });
 
-// add test submission
+it('submit multiple choice answer', () => {
+  const div = document.createElement('div');
+  var question = ReactDOM.render(
+    <Question data={ dummyList[0] } addWrong={function(){}} />, div);
+  question.updateSelection("this is a correct answer");
+  question.updateSelection("second correct answer");
+  question.processAnswers();
+  expect(question.state.isCorrect).toBe(true);
+});
 
 // add test for summary
 
