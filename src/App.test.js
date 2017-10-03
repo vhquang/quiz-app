@@ -14,3 +14,13 @@ it('renders without crashing', () => {
 // test for submit answer with number vs string
 
 // test for read json file, yaml file
+
+var assert = require('assert');
+describe('Array', function() {
+  describe('#indexOf()', function() {
+    it('should return -1 when the value is not present', function() {
+      assert.equal(-1, [1,2,3].indexOf(4));
+    //   assert.equal(true, false);
+    });
+  });
+});
