@@ -37,7 +37,7 @@ it('submit multiple choice answer', () => {
 it('QuizSummary show wrong answer', () => {
   const div = document.createElement('div');
   var summary = ReactDOM.render(<QuizSummary questionsWrong={ [dummyList[0]] } />, div);
-  // TODO need to do element testing
+  // TODO need to do e2e testing
 });
 
 // test for submit answer with number vs string
