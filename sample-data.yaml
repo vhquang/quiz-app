@@ -1,0 +1,18 @@
+- question: Example data, pick your answer
+  correct:
+    - this is a correct answer
+  wrong:
+    - foo
+    - barr
+  explanation: |
+    Some explanation, this can be long
+
+- question: pick your answer
+  correct:
+    - correct 1
+    - correct 2
+  wrong:
+    - foo
+    - bar
+  explanation: |
+    Some explanation

@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 
-import Quiz from './Quiz';
+import { Quiz } from './Quiz';
 // import { shuffle } from './utils';
 
 const dataSchema = {
